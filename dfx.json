@@ -1,0 +1,12 @@
+{
+  "canisters": {
+    "Counter": {
+      "main": "example/main.mo",
+      "type": "motoko"
+    },
+    "Calculadora": {
+      "main": "day-1/main.mo",
+      "type": "motoko"
+    }
+  }
+}

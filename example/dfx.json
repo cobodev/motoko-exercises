@@ -1,8 +1,0 @@
-{
-  "canisters": {
-    "Counter": {
-      "main": "main.mo",
-      "type": "motoko"
-    }
-  }
-}
