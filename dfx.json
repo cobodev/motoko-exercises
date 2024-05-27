@@ -7,6 +7,10 @@
     "Calculadora": {
       "main": "day-1/main.mo",
       "type": "motoko"
+    },
+    "Tareas": {
+      "main": "day-2/main.mo",
+      "type": "motoko"
     }
   }
 }
