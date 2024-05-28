@@ -4,12 +4,20 @@
       "main": "example/main.mo",
       "type": "motoko"
     },
-    "Calculadora": {
+    "Calculator": {
       "main": "day-1/main.mo",
       "type": "motoko"
     },
-    "Tareas": {
+    "HomeworkDiary": {
       "main": "day-2/main.mo",
+      "type": "motoko"
+    },
+    "StudentWall": {
+      "main": "day-3/main.mo",
+      "type": "motoko"
+    },
+    "MotoCoin": {
+      "main": "day-3/main.mo",
       "type": "motoko"
     }
   }
