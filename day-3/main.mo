@@ -34,7 +34,14 @@ actor StudentWall {
   };
 
   public shared query func getMessage(messageId : Nat) : async Result.Result<Message, Text> {
-    // asd
+    switch(wall.get(messageId)) {
+      case(? message) {
+        return #ok(message);
+      };
+      case(null) {
+        return #err("Message not found.");
+      };
+    };
   };
 
   public shared func updateMessage(messageId : Nat, c: Content) : async Result.Result<(), Text> {
