@@ -4,6 +4,8 @@ import Principal "mo:base/Principal";
 import HashMap "mo:base/HashMap";
 import Nat "mo:base/Nat";
 import Hash "mo:base/Hash";
+import Iter "mo:base/Iter";
+import Array "mo:base/Array";
 
 actor StudentWall {
 
@@ -44,27 +46,78 @@ actor StudentWall {
     };
   };
 
-  public shared func updateMessage(messageId : Nat, c: Content) : async Result.Result<(), Text> {
-    // asd
+  public shared ({ caller }) func updateMessage(messageId : Nat, c: Content) : async Result.Result<(), Text> {
+    switch(wall.get(messageId)) {
+      case(? message) {
+        if (caller == message.creator) {
+          wall.put(messageId, {
+            vote = message.vote;
+            content = c;
+            creator = message.creator;
+          });
+          return #ok;
+        } else {
+          return #err("You are not the creator.")
+        };
+      };
+      case(null) {
+        return #err("Message not found.")
+      };
+    };
   };
 
   public shared func deleteMessage(messageId: Nat) : async Result.Result<(), Text> {
-    // asd
+    switch(wall.get(messageId)) {
+      case(? message) {
+        wall.delete(messageId);
+        return #ok;
+      };
+      case(null) {
+        return #err("Message not found.");
+      };
+    };
   };
 
   public shared func upVote(messageId: Nat) : async Result.Result<(), Text> {
-    // asd
+    switch(wall.get(messageId)) {
+      case(? message) {
+        wall.put(messageId, {
+          vote = message.vote + 1;
+          content = message.content;
+          creator = message.creator;
+        });
+        return #ok;
+      };
+      case(null) {
+        return #err("Message not found.")
+      };
+    };
   };
 
   public shared func downVote(messageId: Nat) : async Result.Result<(), Text> {
-    // asd
+    switch(wall.get(messageId)) {
+      case(? message) {
+        wall.put(messageId, {
+          vote = message.vote - 1;
+          content = message.content;
+          creator = message.creator;
+        });
+        return #ok;
+      };
+      case(null) {
+        return #err("Message not found.")
+      };
+    };
   };
 
   public shared query func getAllMessages() : async [Message] {
-    // asd
+    return Iter.toArray(wall.vals());
   };
 
   public shared query func getAllMessagesRanked() : async [Message] {
-    // asd
+    let values = Iter.toArray(wall.vals());
+    return Array.sort<Message>(values, func (a, b) {
+      return Int.compare(a.vote, b.vote);
+    });
   };
 };
