@@ -21,8 +21,9 @@ actor Counter {
     i;
   };
 
-  public func reset() : async () {
+  public func reset() : async Int {
     i := 0;
+    return i;
   };
 
   public query func show() : async Int {

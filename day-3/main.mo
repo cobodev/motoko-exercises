@@ -116,8 +116,10 @@ actor StudentWall {
 
   public shared query func getAllMessagesRanked() : async [Message] {
     let values = Iter.toArray(wall.vals());
-    return Array.sort<Message>(values, func (a, b) {
-      return Int.compare(a.vote, b.vote);
-    });
+    return Array.reverse(
+      Array.sort<Message>(values, func (a, b) {
+        return Int.compare(a.vote, b.vote);
+      })
+    );
   };
 };
